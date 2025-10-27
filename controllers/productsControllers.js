@@ -13,6 +13,18 @@ export const getGenres = async (req, res) => {
       .json({ error: "Failed to fetch genres", details: err.message });
   }
 };
-export const getProducts = async () => {
-  console.log("products");
+export const getProducts = async (req, res) => {
+  try {
+    const db = await getDBConnection();
+
+    let query = "SELECT * FROM products";
+
+    const products = await db.all(query);
+
+    res.json(products);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Failed to fetch products", details: err.message });
+  }
 };
