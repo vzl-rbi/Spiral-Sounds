@@ -16,10 +16,15 @@ export const getGenres = async (req, res) => {
 export const getProducts = async (req, res) => {
   try {
     const db = await getDBConnection();
+    const { genre } = req.query;
 
     let query = "SELECT * FROM products";
-
-    const products = await db.all(query);
+    const params = [];
+    if (genre) {
+      query += " WHERE genre=?";
+      params.push(genre);
+    }
+    const products = await db.all(query, params);
 
     res.json(products);
   } catch (err) {
