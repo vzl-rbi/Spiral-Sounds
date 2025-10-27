@@ -6,6 +6,7 @@ async function createTable() {
     filename: path.join("database.db"),
     driver: sqlite3.Database,
   });
+  // await db.exec(`DROP TABLE IF EXISTS products`); // use this code to clears the old table, create fresh table.
   await db.exec(`
             CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -14,7 +15,7 @@ async function createTable() {
             price REAL NOT NULL, 
             image TEXT NOT NULL,
             year INTEGER,
-            genere TEXT,
+            genre TEXT,
             stock INTEGER
 
             )
